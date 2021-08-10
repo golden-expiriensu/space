@@ -11,19 +11,10 @@ namespace Gravity
             _rb = GetComponent<Rigidbody>();
         }
 
-        public void BeAttracted(Vector3 direction, float magnitude)
+        public void BeAttracted(Vector3 center, float gravity)
         {
-            _rb.AddForce(direction * magnitude);
-        }
-
-        public Vector3 GetPosition()
-        {
-            return _rb.position;
-        }
-
-        public float GetMass()
-        {
-            return _rb.mass;
+            Vector3 gravityUp = (transform.position - center).normalized;
+            _rb.AddForce(gravityUp * gravity);
         }
     }
 }

@@ -4,38 +4,39 @@ namespace Gravity
 {
     public class PlayerGravity : MonoBehaviour, IGravityObject
     {
+        public Transform GroundCheckSphereOrigin;
+        private float _groundCheckSphereRadius = 0.1f;
+        private LayerMask _groundLayer;
+
         private Player.Link _player;
-        private float _rotDamp = 3f;
+        private float _standDamp = 0.1f;
 
         private void Awake()
         {
+            _groundLayer = LayerMask.GetMask("Ground");
             _player = GetComponent<Player.Link>();
         }
 
-        private void FixedUpdate()
+        public void BeAttracted(Vector3 planetCenter, float gravity)
         {
-            Stand();
+            Vector3 gravityDirection = (transform.position - planetCenter).normalized;
+            _player.Rigidbody.AddForce(gravityDirection * gravity);
+
+            Stand(planetCenter);
         }
 
-        public void BeAttracted(Vector3 direction, float magnitude)
+        private void Stand(Vector3 planetCenter)
         {
-            _player.Rigidbody.AddForce(direction * magnitude);
+            Vector3 localUp = transform.up;
+            Vector3 gravityUp = (transform.position - planetCenter).normalized;
+
+            Quaternion targetRotation = Quaternion.FromToRotation(localUp, gravityUp) * transform.rotation;
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _standDamp);
         }
 
-        public Vector3 GetPosition()
+        public bool IsGrounded()
         {
-            return transform.position;
-        }
-
-        public float GetMass()
-        {
-            return _player.Rigidbody.mass;
-        }
-
-        public void Stand()
-        {
-            Quaternion rotation = Quaternion.FromToRotation(transform.up, _player.SurfaceSlider.CurrentNormal);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, _rotDamp * Time.fixedDeltaTime);
+            return Physics.CheckSphere(GroundCheckSphereOrigin.position, _groundCheckSphereRadius, _groundLayer);
         }
     }
 }

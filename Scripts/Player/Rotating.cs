@@ -6,8 +6,6 @@ namespace Player
     {
         private Link _player;
 
-        public Vector3 SurfaceNormal;
-
         private float _turnSmoothTime = 0.1f;
         private float _refTurnSmooth;
 

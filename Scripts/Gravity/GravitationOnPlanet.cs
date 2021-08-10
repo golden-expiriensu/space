@@ -4,15 +4,11 @@ using UnityEngine;
 
 namespace Gravity
 {
-    public class GravitationOnPlanet : Gravitation
+    public class GravitationOnPlanet : MonoBehaviour
     {
-        private List<IGravityObject> _objectsOnPlanet = new List<IGravityObject>();
-        private Rigidbody _planetRigidbody;
+        [SerializeField] private float _gravity = -10f;
 
-        private void Awake()
-        {
-            _planetRigidbody = GetComponent<Rigidbody>();
-        }
+        private List<IGravityObject> _objectsOnPlanet = new List<IGravityObject>();
 
         private void FixedUpdate()
         {
@@ -23,11 +19,7 @@ namespace Gravity
         {
             foreach (IGravityObject _object in _objectsOnPlanet)
             {
-                Vector3 direction = _planetRigidbody.position - _object.GetPosition();
-                float sqrDistance = direction.sqrMagnitude;
-                float force = CalculateForceOfGravity(_object.GetMass(), _planetRigidbody.mass, sqrDistance);
-                
-                _object.BeAttracted(direction.normalized, force);
+                _object.BeAttracted(transform.position, _gravity);
             }
         }
 

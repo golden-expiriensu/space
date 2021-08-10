@@ -26,7 +26,7 @@ namespace Player
             float vertical = Input.GetAxis("Vertical");
             float horizontal = Input.GetAxis("Horizontal");
             Vector3 direction = new Vector3(horizontal, 0, vertical);
-            if(direction.sqrMagnitude >= 0.01f)// && _player.CharacterController.isGrounded)
+            if(_player.PlayerGravity.IsGrounded() && (direction.sqrMagnitude >= 0.01f))
             {
                 _player.Moving.Move(direction);
             }
