@@ -12,24 +12,37 @@ namespace Player
             _player = GetComponent<Link>();
         }
 
-        //private enum ControlType
-        //{
-        //    moveForward
-        //}
-        //private Dictionary<ControlType, KeyCode> ControlBind = new Dictionary<ControlType, KeyCode>
-        //{
-        //    { ControlType.moveForward, KeyCode.W }
-        //};
+        private enum ControlType
+        {
+            TurnLeft,
+            TurnRight
+        }
+        private Dictionary<ControlType, KeyCode> ControlBind = new Dictionary<ControlType, KeyCode>
+        {
+            { ControlType.TurnLeft, KeyCode.Q },
+            { ControlType.TurnRight, KeyCode.E },
+        };
 
         void Update()
         {
             float vertical = Input.GetAxis("Vertical");
             float horizontal = Input.GetAxis("Horizontal");
             Vector3 direction = new Vector3(horizontal, 0, vertical);
-            if(_player.PlayerGravity.IsGrounded() && (direction.sqrMagnitude >= 0.01f))
+
+            if(_player.PlayerGravity.IsGrounded())
             {
-                _player.Moving.Move(direction);
+                if (direction.sqrMagnitude >= 0.01f)
+                {
+                    _player.Moving.Move(direction); 
+                }
+
+                if (Input.GetKey(ControlBind[ControlType.TurnLeft]))
+                    _player.Rotating.TurnLeft();
+
+                if (Input.GetKey(ControlBind[ControlType.TurnRight]))
+                    _player.Rotating.TurnRight();
             }
+
         }
     }
 }

@@ -4,31 +4,18 @@ namespace Player
 {
     public class Rotating : MonoBehaviour
     {
-        private Link _player;
+        [SerializeField] private float Turn90Speed = 0.03f;
 
-        private float _turnSmoothTime = 0.1f;
-        private float _refTurnSmooth;
-
-        private void Awake()
+        public void TurnLeft()
         {
-            _player = GetComponent<Link>();
+            Quaternion turn = Quaternion.Euler(0, -90, 0);
+            transform.rotation = Quaternion.Lerp(transform.rotation, transform.rotation * turn, Turn90Speed);
         }
 
-        private void FixedUpdate()
+        public void TurnRight()
         {
-            TurnAfterCamera();
-        }
-
-        public void TurnAfterCamera()
-        {
-            float yDifference = _player.CameraTransform.eulerAngles.y - _player.Model.eulerAngles.y;
-            yDifference = Mathf.SmoothDampAngle(
-                0,
-                yDifference,
-                ref _refTurnSmooth,
-                _turnSmoothTime);
-            Quaternion turn = Quaternion.Euler(0, yDifference, 0);
-            _player.Model.rotation *= turn;
+            Quaternion turn = Quaternion.Euler(0, 90, 0);
+            transform.rotation = Quaternion.Lerp(transform.rotation, transform.rotation * turn, Turn90Speed);
         }
     }
 }

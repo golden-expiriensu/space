@@ -36,7 +36,7 @@ namespace Gravity
 
         public bool IsGrounded()
         {
-            return Physics.CheckSphere(GroundCheckSphereOrigin.position, _groundCheckSphereRadius, _groundLayer);
+            return true;//Physics.CheckSphere(GroundCheckSphereOrigin.position, _groundCheckSphereRadius, _groundLayer);
         }
     }
 }

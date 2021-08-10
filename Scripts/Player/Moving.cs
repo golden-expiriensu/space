@@ -13,12 +13,10 @@ namespace Player
 
         public void Move(Vector3 direction)
         {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _player.Model.eulerAngles.y;
-            Vector3 moveDirection = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-            Vector3 directionAlongSurface = _player.SurfaceSlider.Project(moveDirection);
-            Vector3 offset = directionAlongSurface * _player.Stats.MoovingSpeed * Time.deltaTime;
+            Vector3 move = (transform.position + 
+                transform.TransformDirection(direction) * _player.Stats.MoovingSpeed * Time.deltaTime);
 
-            _player.Rigidbody.MovePosition(_player.Rigidbody.position + offset);
+            _player.Rigidbody.MovePosition(move);
         }
     }
 }
