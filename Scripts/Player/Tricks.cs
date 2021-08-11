@@ -17,8 +17,12 @@ namespace Player
         {
             Vector3 jump = _player.SurfaceSlider.CurrentNormal * _player.Stats.JumpHeightForce;
 
-            Quaternion rot = Quaternion.FromToRotation(transform.up, _player.Moving.LastMoveDirection);
-            Vector3 move = rot * jump;
+            Vector3 move = Vector3.zero;
+            if (_player.Rigidbody.velocity.magnitude >= .1f)
+            {
+                Quaternion rot = Quaternion.FromToRotation(transform.up, _player.Moving.LastMoveDirection);
+                move = rot * jump;
+            }
 
             _player.Rigidbody.AddForce(jump + move);
         }
