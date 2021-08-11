@@ -7,6 +7,7 @@ namespace Player
     public class Tricks : MonoBehaviour
     {
         private Link _player;
+        public Action OnPlayerJumped;
 
         private void Awake()
         {
@@ -25,6 +26,7 @@ namespace Player
             }
 
             _player.Rigidbody.AddForce(jump + move);
+            OnPlayerJumped?.Invoke();
         }
     }
 }
