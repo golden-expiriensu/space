@@ -12,5 +12,14 @@ namespace Player
                 return _moovingSpeed;
             }
         }
+
+        [SerializeField] private float _jumpForce = 50f;
+        public float JumpForce
+        {
+            get
+            {
+                return _jumpForce;
+            }
+        }
     }
 }

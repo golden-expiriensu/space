@@ -2,7 +2,7 @@
 
 namespace Player
 {
-    public class Moving : MonoBehaviour
+    public class PhysicsMoving : MonoBehaviour
     {
         private Link _player;
 

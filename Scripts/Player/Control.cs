@@ -15,12 +15,14 @@ namespace Player
         private enum ControlType
         {
             TurnLeft,
-            TurnRight
+            TurnRight,
+            Jump,
         }
         private Dictionary<ControlType, KeyCode> ControlBind = new Dictionary<ControlType, KeyCode>
         {
             { ControlType.TurnLeft, KeyCode.Q },
             { ControlType.TurnRight, KeyCode.E },
+            { ControlType.Jump, KeyCode.Space },
         };
 
         void Update()
@@ -35,6 +37,9 @@ namespace Player
                 {
                     _player.Moving.Move(direction); 
                 }
+
+                if (Input.GetKey(ControlBind[ControlType.Jump]))
+                    _player.Tricks.Jump();
 
                 if (Input.GetKey(ControlBind[ControlType.TurnLeft]))
                     _player.Rotating.TurnLeft();

@@ -4,7 +4,8 @@ namespace Player
 {
     public class Link : MonoBehaviour
     {
-        public Moving Moving { get; private set; }
+        public PhysicsMoving Moving { get; private set; }
+        public Tricks Tricks { get; private set; }
         public SurfaceSlider SurfaceSlider { get; private set; }
         public Rotating Rotating { get; private set; }
         public Rigidbody Rigidbody { get; private set; }
@@ -28,7 +29,8 @@ namespace Player
 
         private void Awake()
         {
-            Moving = GetComponent<Moving>();
+            Moving = GetComponent<PhysicsMoving>();
+            Tricks = GetComponent<Tricks>();
             SurfaceSlider = GetComponent<SurfaceSlider>();
             Rotating = GetComponent<Rotating>();
             Rigidbody = GetComponent<Rigidbody>();
