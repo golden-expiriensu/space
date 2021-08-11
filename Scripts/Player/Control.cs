@@ -38,7 +38,7 @@ namespace Player
                     _player.Moving.Move(direction); 
                 }
 
-                if (Input.GetKey(ControlBind[ControlType.Jump]))
+                if (Input.GetKeyDown(ControlBind[ControlType.Jump]))
                     _player.Tricks.Jump();
 
                 if (Input.GetKey(ControlBind[ControlType.TurnLeft]))

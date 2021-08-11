@@ -13,12 +13,21 @@ namespace Player
             }
         }
 
-        [SerializeField] private float _jumpForce = 50f;
-        public float JumpForce
+        [SerializeField] private float _jumpHeightForce = 150f;
+        public float JumpHeightForce
         {
             get
             {
-                return _jumpForce;
+                return _jumpHeightForce;
+            }
+        }
+
+        [SerializeField] private float _jumpDistanceForce = 250f;
+        public float JumpDistanceForce
+        {
+            get
+            {
+                return _jumpDistanceForce;
             }
         }
     }

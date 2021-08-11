@@ -13,10 +13,14 @@ namespace Player
             _player = GetComponent<Link>();
         }
 
-
         public void Jump()
         {
-            _player.Rigidbody.AddForce(_player.SurfaceSlider.CurrentNormal * _player.Stats.JumpForce);
+            Vector3 jump = _player.SurfaceSlider.CurrentNormal * _player.Stats.JumpHeightForce;
+            Vector3 move = _player.Moving.LastMoveDirection;
+            
+            move *= _player.Stats.JumpDistanceForce * _player.Rigidbody.velocity.magnitude;
+
+            _player.Rigidbody.AddForce(jump + move);
         }
     }
 }
